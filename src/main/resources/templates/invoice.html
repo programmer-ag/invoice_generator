@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body { font-family: 'Arial', sans-serif; }
+        .header { color: #333; border-bottom: 2px solid #444; }
+        .item-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .item-table th { background: #f4f4f4; padding: 10px; text-align: left; }
+        .item-table td { padding: 10px; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 th:text="'Invoice #' + ${invoice.invoiceNumber}"></h1>
+        <p th:text="'Date: ' + ${invoice.date}"></p>
+    </div>
+
+    <div>
+        <strong>From:</strong> <span th:text="${invoice.senderName}"></span><br/>
+        <strong>To:</strong> <span th:text="${invoice.clientName}"></span>
+    </div>
+
+	<table class="item-table">
+	    <thead>
+	        <tr>
+	            <th>Description</th>
+	            <th>Qty</th>
+	            <th>Price</th>
+	            <th>Total</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="item : ${invoice.items}">
+	            <td th:text="${item.description}"></td>
+	            <td th:text="${item.quantity}"></td>
+	            <td th:text="|${invoice.currency} ${#numbers.formatDecimal(item.price, 1, 2)}|"></td>
+	            <td th:text="|${invoice.currency} ${#numbers.formatDecimal(item.quantity * item.price, 1, 2)}|"></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="2"></td>
+	            <td style="text-align: right;">
+	                <strong th:text="|Tax (${invoice.taxRate}%)|"></strong>
+	            </td>
+	            <td th:text="|${invoice.currency} ${#numbers.formatDecimal(invoice.getTax(), 1, 2)}|"></td>
+	        </tr>
+	    </tfoot>
+	</table>
+
+    <h3 style="text-align: right;">
+        Grand Total: <span th:text="${invoice.getCurrency() +' '+invoice.getTotal()}"></span>
+    </h3>
+</body>
+</html>
