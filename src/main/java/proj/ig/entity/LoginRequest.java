@@ -1,10 +1,6 @@
 package proj.ig.entity;
 
 
-
-
-
-
 public class LoginRequest {
     private String userEmail;
     public String getUserEmail() {
