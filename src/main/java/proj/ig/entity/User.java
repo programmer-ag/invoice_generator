@@ -1,10 +1,13 @@
 package proj.ig.entity;
 
+
 import java.util.UUID;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -57,6 +60,7 @@ public class User {
 	}
 	
 	@Id
+	@Column(name = "user_email")
     private String userEmail; // Primary Key
 
     @Column(unique = true, nullable = false)

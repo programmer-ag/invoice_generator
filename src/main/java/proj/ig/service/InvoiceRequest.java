@@ -9,6 +9,7 @@ public class InvoiceRequest {
     private String date;
     private String senderName;
     private String clientName;
+    private String clientAddress;
     private List<Item> items;
     public String getTemplateName() {
 		return templateName;
@@ -22,7 +23,17 @@ public class InvoiceRequest {
     private String currency="₹";
     private String senderAddress; // New: Physical address
     private String templateName;
-    public String getSenderAddress() {
+    
+    
+    public String getClientAddress() {
+		return clientAddress;
+	}
+
+	public void setClientAddress(String clientAddress) {
+		this.clientAddress = clientAddress;
+	}
+
+	public String getSenderAddress() {
 		return senderAddress;
 	}
 

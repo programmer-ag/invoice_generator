@@ -1,6 +1,6 @@
 package proj.ig.security;
 
-//import java.util.Arrays;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +10,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-//import org.springframework.web.cors.CorsConfiguration;
-//import org.springframework.web.cors.CorsConfigurationSource;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
@@ -34,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http
         // 1. Apply your CORS settings
-        //.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+       // .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         
         // 2. Disable CSRF (standard for JWT/Stateless APIs)
         .csrf(csrf -> csrf.disable()) 
@@ -49,7 +49,7 @@ public class SecurityConfig {
             // Public: Anyone can try to join or log in
             .requestMatchers("/api/auth/**").permitAll() 
             .requestMatchers("/", "/index.html", "/static/**", "/assets/**", "/*.js", "/*.css", "/*.png", "/*.svg", "/*.ico").permitAll()            // Private: EVERYTHING else requires a valid JWT
-            .requestMatchers("/","/login", "/editor", "/profile", "/history", "/register").permitAll()
+            .requestMatchers("/","/login", "/editor", "/profile", "/history", "/register","/clients").permitAll()
             .requestMatchers("/src/assets/**").permitAll()
             .requestMatchers("/api/user/**").authenticated()
             .anyRequest().authenticated() 
@@ -65,7 +65,7 @@ public class SecurityConfig {
 //    public CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","PATCH" , "OPTIONS"));
 //        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 //        configuration.setExposedHeaders(Arrays.asList("Content-Disposition")); // Important for file downloads
 //        
@@ -73,6 +73,7 @@ public class SecurityConfig {
 //        source.registerCorsConfiguration("/**", configuration);
 //        return source;
 //    }
+
     
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {

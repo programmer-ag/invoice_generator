@@ -2,6 +2,7 @@ package proj.ig.entity;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class InvoiceHistory {
 
     @Column(name="user_email")
     private String userEmail;
-    
+
     private String pdfName;
 
     @Column(columnDefinition = "BYTEA") // PostgreSQL specific for binary
@@ -27,9 +28,27 @@ public class InvoiceHistory {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private String clientName;
+
+    private boolean paid = false;
+    
     // Getters and Setters...
+    
     public Long getPdfId() { return pdfId; }
-    public void setPdfId(Long pdfId) { this.pdfId = pdfId; }
+    
+    public String getClientName() {
+		return clientName;
+	}
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+	public boolean isPaid() {
+		return paid;
+	}
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
+	public void setPdfId(Long pdfId) { this.pdfId = pdfId; }
     
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
@@ -42,4 +61,6 @@ public class InvoiceHistory {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    
 }

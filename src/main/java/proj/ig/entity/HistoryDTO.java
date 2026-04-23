@@ -6,12 +6,32 @@ public class HistoryDTO {
     private Long pdfId;
     private String pdfName;
     private LocalDateTime createdAt;
-
-    public HistoryDTO(Long pdfId, String pdfName, LocalDateTime createdAt) {
+    private String clientName;
+    private boolean paid;
+    
+    public HistoryDTO(Long pdfId, String pdfName, LocalDateTime createdAt, String clientName, boolean paid) {
         this.pdfId = pdfId;
         this.pdfName = pdfName;
         this.createdAt = createdAt;
+        this.clientName = clientName;
+        this.paid = paid;
     }
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
 
 	public Long getPdfId() {
 		return pdfId;

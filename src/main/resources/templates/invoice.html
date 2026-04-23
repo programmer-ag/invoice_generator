@@ -78,10 +78,17 @@
 				<span th:if="${invoice.showAddress}" th:text="'Address: '+${invoice.senderAddress}"></span><br th:if="${invoice.showAddress}"/>
                 <span th:if="${invoice.showTaxId}" th:text="'Tax ID: ' + ${invoice.taxId}"></span>
             </td>
-            <td width="50%" class="text-right">
-                <div class="label">Bill To</div>
-                <strong th:text="${invoice.clientName}"></strong>
-            </td>
+			<td width="50%" class="text-right" style="vertical-align: top; width: 50%; table-layout: fixed;">
+			    <div class="label" style="margin-bottom: 4px; font-weight: normal;">Bill To</div>
+			    
+			    <div style="display: block; font-weight: bold !important; font-size: 1.1em; line-height: 1.2; margin-bottom: 2px;  word-wrap: break-word;">
+			        <span th:text="${invoice.clientName}">Client Name</span>
+			    </div>
+			    
+			    <div style="display: block; font-weight: normal !important; line-height: 1.3; color: #333; white-space: pre-line;  word-wrap: break-word;">
+			        <span th:text="${invoice.clientAddress}">Client Address Line 1</span>
+			    </div>
+			</td>
         </tr>
     </table>
 

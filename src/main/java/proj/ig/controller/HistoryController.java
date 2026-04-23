@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class HistoryController {
         // 1. findByUserEmail returns a List. We stream it directly.
         return historyRepository.findByUserEmail(principal.getName())
                 .stream()
-                .map(h -> new HistoryDTO(h.getPdfId(), h.getPdfName(), h.getCreatedAt()))
+                .map(h -> new HistoryDTO(h.getPdfId(), h.getPdfName(), h.getCreatedAt(), h.getClientName(), h.isPaid()))
                 .collect(Collectors.toList());
     }
 
@@ -69,5 +70,19 @@ public class HistoryController {
                 // "inline" tells the browser to open it, not download it
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + history.getPdfName())
                 .body(history.getPdfData());
+    }
+    
+    @PatchMapping("/{id}/toggle-paid")
+    public ResponseEntity<?> togglePaidStatus(@PathVariable Long id, Principal principal) {
+        InvoiceHistory record = historyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
+
+        if (!record.getUserEmail().equals(principal.getName())) {
+            return ResponseEntity.status(403).body("Unauthorized");
+        }
+
+        record.setPaid(!record.isPaid());
+        historyRepository.save(record);
+        return ResponseEntity.ok(record.isPaid());
     }
 }

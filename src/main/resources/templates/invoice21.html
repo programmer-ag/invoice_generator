@@ -212,12 +212,18 @@
                     <span th:if="${invoice.showTaxId}" th:text="'VAT/TAX ID: ' + ${invoice.taxId}" style="font-weight: bold;"></span>
                 </div>
             </td>
-            <td width="50%" class="text-right">
-                <span class="section-heading">Recipient</span>
-                <div class="address-text" style="padding-right: 0;">
-                    <strong th:text="${invoice.clientName}">Client Name</strong>
-                    </div>
-            </td>
+			<td width="50%" class="text-right" style="vertical-align: top;">
+			    <span class="section-heading">Recipient</span>
+			    <div class="address-text" style="padding-right: 0; word-wrap: break-word;">
+			        <strong style="display: block; margin-bottom: 2px;" th:text="${invoice.clientName}">
+			            Client Name
+			        </strong>
+			        
+			        <div style="display: block; white-space: pre-line; font-weight: normal; line-height: 1.3;" th:text="${invoice.clientAddress}">
+			            Client Address
+			        </div>
+			    </div>
+			</td>
         </tr>
     </table>
 
@@ -242,20 +248,27 @@
         </tbody>
     </table>
 
-    <div class="summary-wrapper">
-        <table class="summary-table">
-            <tr th:if="${invoice.taxEnabled}">
-                <td class="meta-label" th:text="'Tax (' + ${invoice.taxRate} + '%)'"></td>
-                <td class="text-right" style="font-weight: 600;" 
-                    th:text="${invoice.currency + ' ' + #numbers.formatDecimal(invoice.getTax(), 1, 2)}"></td>
-            </tr>
-            <tr class="total-row">
-                <td class="total-label">Grand Total</td>
-                <td class="total-amount" 
-                    th:text="${invoice.currency + ' ' + #numbers.formatDecimal(invoice.getTotal(), 1, 2)}"></td>
-            </tr>
-        </table>
-    </div>
+   
+	
+	<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+	    <tr>
+	        <td style="width: 60%;"></td> 
+	        <td style="width: 40%;">
+	            <table class="summary-table" style="width: 100%; margin-left: auto;">
+	                <tr th:if="${invoice.taxEnabled}">
+	                    <td class="meta-label" th:text="'Tax (' + ${invoice.taxRate} + '%)'"></td>
+	                    <td class="text-right" style="font-weight: 600;" 
+	                        th:text="${invoice.currency + ' ' + #numbers.formatDecimal(invoice.getTax(), 1, 2)}"></td>
+	                </tr>
+	                <tr class="total-row">
+	                    <td class="total-label">Grand Total</td>
+	                    <td class="total-amount" 
+	                        th:text="${invoice.currency + ' ' + #numbers.formatDecimal(invoice.getTotal(), 1, 2)}"></td>
+	                </tr>
+	            </table>
+	        </td>
+	    </tr>
+	</table>
 
     <div class="footer-details">
         <div th:if="${invoice.showNotes}" class="notes-container" th:text="${invoice.notes}"></div>

@@ -46,6 +46,7 @@ public class InvoiceController {
         history.setUserEmail(principal.getName());
         history.setPdfName("Invoice_" + request.getInvoiceNumber() + ".pdf");
         history.setPdfData(pdfContents);
+        history.setClientName(request.getClientName());
         historyRepository.save(history);
         
         return ResponseEntity.ok()
@@ -54,6 +55,8 @@ public class InvoiceController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfContents);
     }
+    
+   
     
     @PostMapping("/preview")
     public ResponseEntity<String> getPreview(@RequestBody InvoiceRequest request) {

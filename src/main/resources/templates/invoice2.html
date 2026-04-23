@@ -181,12 +181,19 @@
                     <span th:if="${invoice.showContact}" th:text="${invoice.senderContact}">contact</span>
                 </div>
             </td>
-            <td class="info-block text-right" width="50%">
-                <span class="tiny-label">Bill To</span>
-                <div class="info-value">
-                    <strong style="font-size: 15px;" th:text="${invoice.clientName}">Client Name</strong><br/>
-                    </div>
-            </td>
+			<td class="info-block text-right" width="50%" style="vertical-align: top;">
+			    <span class="tiny-label">Bill To</span>
+			    <div class="info-value" style="word-wrap: break-word; ">
+			        <strong style="font-size: 15px; display: block; margin-bottom: 2px;" th:text="${invoice.clientName}">
+			            Client Name
+			        </strong>
+			        
+			        <div style="font-weight: normal; white-space: pre-line; line-height: 1.3; color: #333;" th:text="${invoice.clientAddress}">
+			            Client Address
+			        </div>
+			    </div>
+			</td>
+			
         </tr>
     </table>
 
