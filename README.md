@@ -1,6 +1,7 @@
 # Invogen Invoice Generator
+###Full Stack Development
 
-*Full Stack Development* **Invoice Generation and Management System** built with **Spring Boot** and **React**. This application allows users to generate professional invoices, set personal profile for autofill, track payment status, manage a saved client directory, and download or view generated PDFs.
+**Invoice Generation and Management System** built with **Spring Boot** and **React**. This application allows users to generate professional invoices, set personal profile for autofill, track payment status, manage a saved client directory, and download or view generated PDFs.
 
 The project is optimized for production as a **Single Origin Deployment**, where the built React frontend is served directly through the Spring Boot.
 
